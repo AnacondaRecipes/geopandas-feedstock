@@ -27,10 +27,8 @@ requirements:
     - rtree
     - descartes
     - matplotlib
-    # We may want to re-add these two when the openssl migration is over and/or
-    # when conda-forge starts using the `strict` channel option.
-    # - psycopg2
-    # - sqlalchemy
+    - psycopg2
+    - sqlalchemy
     - mapclassify
 
 test:
