@@ -31,8 +31,12 @@ test:
   imports:
     - geopandas
     - geopandas.io
+  requires:
+    - pip
   files:
     - test_data
+  commands:
+    - pip check
 
 about:
   home: http://geopandas.org
