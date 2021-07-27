@@ -1,4 +1,4 @@
-{% set version = "0.8.1" %}
+{% set version = "0.9.0" %}
 
 package:
   name: geopandas
@@ -6,37 +6,58 @@ package:
 
 source:
   url: https://github.com/geopandas/geopandas/releases/download/v{{ version }}/geopandas-{{ version }}.tar.gz
-  sha256: e28a729e44ac53c1891b54b1aca60e3bc0bb9e88ad0f2be8e301a03b9510f6e2
+  sha256: 63972ab4dc44c4029f340600dcb83264eb8132dd22b104da0b654bef7f42630a
 
 build:
-  number: 0
+  number: 1
   noarch: python
-  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
-requirements:
-  host:
-    - python >=3.5
-    - pip
-  run:
-    - python >=3.5
-    - pandas >=0.23
-    - shapely
-    - fiona
-    - pyproj >=2.2.0
-    - rtree
+outputs:
+  - name: geopandas-base
+    script: build_base.sh
+    build:
+      noarch: python
+    requirements:
+      host:
+        - python >=3.6
+        - pip
+      run:
+        - python >=3.6
+        - pandas >=0.24
+        - shapely
+        - pyproj >=2.2.0
 
-test:
-  imports:
-    - geopandas
-    - geopandas.io
-  files:
-    - test_data
+    test:
+      imports:
+        - geopandas
+        - geopandas.io
+      files:
+        - test_data
+
+  - name: geopandas
+    requirements:
+      host:
+        - python >=3.6
+      run:
+        - python >=3.6
+        - {{ pin_subpackage('geopandas-base', exact=True) }}
+        - fiona
+        - rtree
+        - matplotlib-base
+        - mapclassify >=2.2.0
+
+    test:
+      imports:
+        - geopandas
+        - geopandas.io
+      files:
+        - test_data
 
 about:
   home: http://geopandas.org
   license: BSD-3-Clause
-  license_file: 'LICENSE.txt'
-  summary: 'Geographic pandas extensions'
+  license_file: LICENSE.txt
+  summary: Geographic pandas extensions
 
 extra:
   recipe-maintainers:

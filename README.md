@@ -5,11 +5,9 @@ Home: http://geopandas.org
 
 Package license: BSD-3-Clause
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/geopandas-feedstock/blob/master/LICENSE.txt)
 
 Summary: Geographic pandas extensions
-
-
 
 Current build status
 ====================
@@ -30,6 +28,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-geopandas-green.svg)](https://anaconda.org/conda-forge/geopandas) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/geopandas.svg)](https://anaconda.org/conda-forge/geopandas) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/geopandas.svg)](https://anaconda.org/conda-forge/geopandas) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/geopandas.svg)](https://anaconda.org/conda-forge/geopandas) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-geopandas--base-green.svg)](https://anaconda.org/conda-forge/geopandas-base) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/geopandas-base.svg)](https://anaconda.org/conda-forge/geopandas-base) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/geopandas-base.svg)](https://anaconda.org/conda-forge/geopandas-base) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/geopandas-base.svg)](https://anaconda.org/conda-forge/geopandas-base) |
 
 Installing geopandas
 ====================
@@ -38,12 +37,13 @@ Installing `geopandas` from the `conda-forge` channel can be achieved by adding 
 
 ```
 conda config --add channels conda-forge
+conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `geopandas` can be installed with:
+Once the `conda-forge` channel has been enabled, `geopandas, geopandas-base` can be installed with:
 
 ```
-conda install geopandas
+conda install geopandas geopandas-base
 ```
 
 It is possible to list all of the versions of `geopandas` available on your platform with:
@@ -108,9 +108,9 @@ build distinct package versions.
 
 In order to produce a uniquely identifiable distribution:
  * If the version of a package **is not** being increased, please add or increase
-   the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string).
+   the [``build/number``](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-number-and-string).
  * If the version of a package **is** being increased, please remember to return
-   the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string)
+   the [``build/number``](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-number-and-string)
    back to 0.
 
 Feedstock Maintainers
