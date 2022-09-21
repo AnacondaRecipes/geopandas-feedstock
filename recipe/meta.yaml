@@ -1,4 +1,4 @@
-{% set version = "0.9.0" %}
+{% set version = "0.11.1" %}
 
 package:
   name: geopandas
@@ -6,10 +6,10 @@ package:
 
 source:
   url: https://github.com/geopandas/geopandas/releases/download/v{{ version }}/geopandas-{{ version }}.tar.gz
-  sha256: 63972ab4dc44c4029f340600dcb83264eb8132dd22b104da0b654bef7f42630a
+  sha256: f0f0c8d0423d30cf81de2056d853145c4362739350a7f8f2d72cc7409ef1eca1
 
 build:
-  number: 1
+  number: 0
   noarch: python
 
 outputs:
@@ -18,14 +18,18 @@ outputs:
     build:
       noarch: python
     requirements:
+      build:
+        - python                                 # [build_platform != target_platform]
+        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
-        - python >=3.6
+        - python >=3.8
         - pip
       run:
-        - python >=3.6
-        - pandas >=0.24
-        - shapely
-        - pyproj >=2.2.0
+        - python >=3.8
+        - pandas >=1.0.5
+        - shapely >=1.7, <2
+        - pyproj >=2.6.1.post1
+        - packaging
 
     test:
       imports:
@@ -37,14 +41,16 @@ outputs:
   - name: geopandas
     requirements:
       host:
-        - python >=3.6
+        - python >=3.8
       run:
-        - python >=3.6
+        - python >=3.8
         - {{ pin_subpackage('geopandas-base', exact=True) }}
         - fiona
         - rtree
         - matplotlib-base
-        - mapclassify >=2.2.0
+        - mapclassify >=2.4.0
+        - folium
+        - xyzservices
 
     test:
       imports:
@@ -64,3 +70,4 @@ extra:
     - ocefpaf
     - jorisvandenbossche
     - jdmcbr
+    - martinfleis
