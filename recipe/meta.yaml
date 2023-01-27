@@ -11,7 +11,8 @@ source:
 
 build:
   number: 0
-  skip: True  # [py<38]
+  # rtree, fiona, xyzservices are missing on s390x.
+  skip: True  # [py<38 os s390x]
 
 outputs:
   - name: geopandas-base
@@ -50,7 +51,7 @@ outputs:
         - python
         - {{ pin_subpackage('geopandas-base', exact=True) }}
         - fiona >=1.8
-        # fiona package isn't available yet on the defaults channel.
+        # folium package isn't available yet on the defaults channel.
         #- folium
         - mapclassify >=2.4.0
         - matplotlib-base
