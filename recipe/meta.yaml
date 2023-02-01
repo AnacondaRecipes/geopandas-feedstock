@@ -11,8 +11,8 @@ source:
 
 build:
   number: 0
-  # rtree, fiona, xyzservices are missing on s390x.
-  skip: True  # [py<38 or s390x or py>310]
+  # rtree, fiona are missing on s390x.
+  skip: True  # [py<38 or s390x or py>=310]
 
 outputs:
   - name: geopandas-base
