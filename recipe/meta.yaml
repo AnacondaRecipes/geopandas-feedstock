@@ -12,7 +12,8 @@ source:
 build:
   number: 0
   # rtree, fiona are missing on s390x.
-  # geopandas has unsatisfable dependencies for python 3.10.
+  # geopandas has unsatisfable dependencies for python 3.10 (Seems like the incompatible dependencies are
+  # libgdal-3.0.2-h0f233a1_0 requires proj >=6.2.1,<6.2.2.0a0, but we have pyproj with a dependent proj >=8.2.1). 
   # Generaly, it's not clear if geopandas 0.12.2 has support for python 3.10 on all platfroms,
   # see https://github.com/geopandas/geopandas/blob/v0.12.2/.github/workflows/tests.yaml
   skip: True  # [py<38 or s390x or py>=310]
