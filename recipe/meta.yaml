@@ -12,6 +12,9 @@ source:
 build:
   number: 0
   # rtree, fiona are missing on s390x.
+  # geopandas has unsatisfable dependencies for python 3.10.
+  # Generaly, it's not clear if geopandas 0.12.2 has support for python 3.10 on all platfroms,
+  # see https://github.com/geopandas/geopandas/blob/v0.12.2/.github/workflows/tests.yaml
   skip: True  # [py<38 or s390x or py>=310]
 
 outputs:
