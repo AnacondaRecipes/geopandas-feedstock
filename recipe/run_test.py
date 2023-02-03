@@ -1,16 +1,16 @@
 import os
 import geopandas
+import fiona
 
 
-fname_shp = os.path.join(os.environ['RECIPE_DIR'], 'test_data', 'test.shp')
-geopandas.read_file(fname_shp)
+RECIPE_DIR = os.environ['RECIPE_DIR']
 
-fname_cpg = os.path.join(os.environ['RECIPE_DIR'], 'test_data', 'test.cpg')
-geopandas.read_file(fname_cpg)
+fname_shp = os.path.join(RECIPE_DIR, 'test_data', 'test.shp')
+geopandas.read_file(fname_shp, encoding='utf-8')
 
-fname_dbf = os.path.join(os.environ['RECIPE_DIR'], 'test_data', 'test.dbf')
-geopandas.read_file(fname_dbf)
+fname_dbf = os.path.join(RECIPE_DIR, 'test_data', 'test.dbf')
+geopandas.read_file(fname_dbf, encoding='utf-8')
 
-fname_shx = os.path.join(os.environ['RECIPE_DIR'], 'test_data', 'test.shx')
-geopandas.read_file(fname_shx)
+fname_shx = os.path.join(RECIPE_DIR, 'test_data', 'test.shx')
+geopandas.read_file(fname_shx, encoding='utf-8')
 
