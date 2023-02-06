@@ -57,7 +57,7 @@ outputs:
         - fiona >=1.8
         - folium
         - mapclassify >=2.4.0
-        - matplotlib-base
+        - matplotlib-base >=3.2.0
         - rtree
         - xyzservices
 
