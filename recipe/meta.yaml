@@ -1,22 +1,20 @@
 {% set name = "geopandas" %}
-{% set version = "0.12.2" %}
+{% set version = "0.13.2" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name|lower }}-split
   version: {{ version }}
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 0acdacddefa176525e4da6d9aeeece225da26055c4becdc6e97cf40fa97c27f4
+  sha256: e5b56d9c20800c77bcc0c914db3f27447a37b23b2cd892be543f5001a694a968
 
 build:
   number: 0
   # rtree is missing on s390x.
   # geopandas has unsatisfable dependencies for python 3.10 (Seems like the incompatible dependencies are
   # libgdal-3.0.2-h0f233a1_0 requires proj >=6.2.1,<6.2.2.0a0, but we have pyproj with a dependent proj >=8.2.1). 
-  # Generaly, it's not clear if geopandas 0.12.2 has support for python 3.10 on all platfroms,
-  # see https://github.com/geopandas/geopandas/blob/v0.12.2/.github/workflows/tests.yaml
-  skip: True  # [py<38 or s390x or py>=310]
+  skip: True  # [py<38 or s390x or py>310]
 
 outputs:
   - name: geopandas-base
@@ -31,10 +29,10 @@ outputs:
       run:
         - python
         - packaging
-        - pandas >=1.0.0
-        - pyproj >=2.6.1.post1
-        - shapely >=1.7
-        - fiona >=1.8
+        - pandas >=1.1.0
+        - pyproj >=3.0.1
+        - shapely >=1.7.1
+        - fiona >=1.8.19
     test:
       imports:
         - geopandas
@@ -56,7 +54,7 @@ outputs:
         - {{ pin_subpackage('geopandas-base', exact=True) }}
         - folium
         - mapclassify >=2.4.0
-        - matplotlib-base >=3.2.0
+        - matplotlib-base >=3.3.4
         - rtree
         - xyzservices
 
