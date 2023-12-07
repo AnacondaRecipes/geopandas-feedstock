@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/geopandas/geopandas-{{ version }}.tar.gz
   sha256: 4853ff89ecb6d1cfc43e7b3671092c8160e8a46a3dd7368f25906283314e42bb
 
 build:
@@ -83,9 +83,9 @@ about:
     GeoPandas extends the datatypes used by pandas to allow spatial operations on geometric types.
     Geometric operations are performed by shapely. Geopandas further depends on fiona for file access and
     descartes and matplotlib for plotting.
-    The goal of GeoPandas is to make working with geospatial data in python easier. 
-    It combines the capabilities of pandas and shapely, providing geospatial operations in pandas 
-    and a high-level interface to multiple geometries to shapely. 
+    The goal of GeoPandas is to make working with geospatial data in python easier.
+    It combines the capabilities of pandas and shapely, providing geospatial operations in pandas
+    and a high-level interface to multiple geometries to shapely.
     GeoPandas enables you to easily do operations in python that would otherwise require a spatial database such as PostGIS.
   dev_url: https://github.com/geopandas/geopandas
   doc_url: https://geopandas.org/en/stable/docs.html
