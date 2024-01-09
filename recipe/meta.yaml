@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [py<39]
+  skip: True  # [py<39 or s390x]
 
 outputs:
   - name: geopandas-base
