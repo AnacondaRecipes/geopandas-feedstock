@@ -1,22 +1,17 @@
-{% set name = "geopandas" %}
-{% set version = "0.12.2" %}
+{% set name = "geopandas-split" %}
+{% set version = "0.14.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 0acdacddefa176525e4da6d9aeeece225da26055c4becdc6e97cf40fa97c27f4
+  url: https://pypi.io/packages/source/{{ name[0] }}/geopandas/geopandas-{{ version }}.tar.gz
+  sha256: 6e71d57b8376f9fdc9f1c3aa3170e7e420e91778de854f51013ae66fd371ccdb
 
 build:
   number: 0
-  # rtree is missing on s390x.
-  # geopandas has unsatisfable dependencies for python 3.10 (Seems like the incompatible dependencies are
-  # libgdal-3.0.2-h0f233a1_0 requires proj >=6.2.1,<6.2.2.0a0, but we have pyproj with a dependent proj >=8.2.1). 
-  # Generaly, it's not clear if geopandas 0.12.2 has support for python 3.10 on all platfroms,
-  # see https://github.com/geopandas/geopandas/blob/v0.12.2/.github/workflows/tests.yaml
-  skip: True  # [py<38 or s390x or py>=310]
+  skip: True  # [py<39 or s390x]
 
 outputs:
   - name: geopandas-base
@@ -31,10 +26,10 @@ outputs:
       run:
         - python
         - packaging
-        - pandas >=1.0.0
-        - pyproj >=2.6.1.post1
-        - shapely >=1.7
-        - fiona >=1.8
+        - pandas >=1.4.0
+        - pyproj >=3.3.0
+        - shapely >=1.8.0
+        - fiona >=1.8.21
     test:
       imports:
         - geopandas
@@ -43,6 +38,10 @@ outputs:
         - geopandas.datasets
       files:
         - test_data
+      requires:
+        - pip
+      commands:
+        - pip check
 
   - name: geopandas
     requirements:
@@ -56,8 +55,8 @@ outputs:
         - {{ pin_subpackage('geopandas-base', exact=True) }}
         - folium
         - mapclassify >=2.4.0
-        - matplotlib-base >=3.2.0
-        - rtree
+        - matplotlib-base >=3.5.0
+        - rtree >=0.9 # [not s390x]
         - xyzservices
 
     test:
@@ -84,9 +83,9 @@ about:
     GeoPandas extends the datatypes used by pandas to allow spatial operations on geometric types.
     Geometric operations are performed by shapely. Geopandas further depends on fiona for file access and
     descartes and matplotlib for plotting.
-    The goal of GeoPandas is to make working with geospatial data in python easier. 
-    It combines the capabilities of pandas and shapely, providing geospatial operations in pandas 
-    and a high-level interface to multiple geometries to shapely. 
+    The goal of GeoPandas is to make working with geospatial data in python easier.
+    It combines the capabilities of pandas and shapely, providing geospatial operations in pandas
+    and a high-level interface to multiple geometries to shapely.
     GeoPandas enables you to easily do operations in python that would otherwise require a spatial database such as PostGIS.
   dev_url: https://github.com/geopandas/geopandas
   doc_url: https://geopandas.org/en/stable/docs.html

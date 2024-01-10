@@ -1,5 +1,8 @@
 import os
 import geopandas
+import geopandas.io
+import geopandas.tools
+import geopandas.datasets
 import fiona
 
 
