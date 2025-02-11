@@ -3,4 +3,4 @@ build_env_vars:
 
 channels:
   - https://staging.continuum.io/prefect/fs/pyogrio-feedstock/pr1/2f9ed2a
-  - https://staging.continuum.io/prefect/fs/pyproj-feedstock/pr9/352342f
+
