@@ -77,6 +77,8 @@ outputs:
         - {{ pin_subpackage('geopandas-base', exact=True) }}
         # extras for: plotting
         - folium
+        # https://github.com/geopandas/geopandas/blob/v1.0.1/doc/source/getting_started/install.rst#dependencies
+        # in the next version it will be bumped to 2.5.0 and added to pyproject.toml
         - mapclassify >=2.4.0
         - matplotlib-base
         - xyzservices
