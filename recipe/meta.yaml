@@ -61,7 +61,9 @@ outputs:
         # check that pip gets the correct version 
         - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
         - pytest -n auto -vv geopandas/tests
-        - pytest -n auto -vv geopandas/io/tests
+        - pytest -n auto -vv geopandas/io/tests  # [not (linux and aarch64)]
+        # Skip flaky test test_write_read_file on linux-aarch64
+        - pytest -n auto -vv geopandas/io/tests -k "not test_write_read_file"  # [linux and aarch64]
         - pytest -n auto -vv geopandas/tools/tests
 
   - name: {{ name }}
