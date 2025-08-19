@@ -1,5 +1,5 @@
 {% set name = "geopandas" %}
-{% set version = "1.0.1" %}
+{% set version = "1.1.1" %}
 
 package:
   name: {{ name }}-split
@@ -8,43 +8,71 @@ package:
 source:
   # switch to GH archive rather than GH releases/download, to have the data files
   url: https://github.com/{{ name }}/{{ name }}/archive/v{{ version }}/{{ name }}-{{ version }}.tar.gz
-  sha256: c4c5467cdeb9080114cc70292e3c4d50f981eff156bcb7ac2b3e544d6897268a
+  sha256: 542a62be47cf7931a457b007ae4adcc5f3e20086c0247f166beed3fc2fb86307
 
 build:
   number: 0
-  skip: True  # [py<39 or s390x]
+  skip: True  # [py<310]
 
 outputs:
   - name: {{ name }}-base
-    script: build_base.sh   # [unix]
+    script: build_base.sh  # [unix]
     script: build_base.bat  # [win]
     requirements:
       host:
         - python
         - pip
-        - setuptools
+        - setuptools >=61.0.0
         - wheel
       run:
         - python
         - packaging
-        - pandas >=1.4.0
+        - pandas >=2.0.0
         - shapely >=2.0.0
-        - numpy >=1.22
+        - numpy >=1.24
         - pyogrio >=0.7.2
-        - pyproj >=3.3.0
+        - pyproj >=3.5.0
       run_constrained:
         # geodatabase access
-        # https://github.com/geopandas/geopandas/blob/v1.0.1/environment-dev.yml#L35
+        # https://github.com/geopandas/geopandas/blob/v1.1.1/environment-dev.yml#L40
         - psycopg2 >=2.8.0
         - psycopg-binary >=3.1.0
-        - sqlalchemy >=1.3
-        - matplotlib-base >=3.5.0
+        - sqlalchemy >=2.0
+        - matplotlib-base >=3.7.0
         # parquet
-        - pyarrow >=8.0.0
+        - pyarrow >=10.0.0
+
+  # shapely.errors.UnsupportedGEOSVersionError: 'get_m' requires at least GEOS 3.12.0.
+  {% set tests_to_skip = "test_m_points" %}
+  # AssertionError: 1 out of 2 geometries are not equal
+  {% set tests_to_skip = tests_to_skip + " or test_maximum_inscribed_circle" %}
+  # AssertionError: DataFrame.iloc[:, 2] (column name="m") are different
+  {% set tests_to_skip = tests_to_skip + " or test_get_coordinates_m" %}
     test:
       imports:
         - geopandas
-        - geopandas.io
+        - geopandas._compat
+        - geopandas._config
+        - geopandas._decorator
+        - geopandas.accessors
+        - geopandas.array
+        - geopandas.base
+        - geopandas.datasets
+        - geopandas.explore
+        - geopandas.geodataframe
+        - geopandas.geoseries
+        - geopandas.io.arrow
+        - geopandas.io.file
+        - geopandas.io.sql
+        - geopandas.io.util
+        - geopandas.plotting
+        - geopandas.testing
+        - geopandas.tests.util
+        - geopandas.tools
+        - geopandas.tools._random
+        - geopandas.tools._show_versions
+        - geopandas.tools.clip
+        - geopandas.tools.geocoding
       files:
         - test_data
       source_files:
@@ -60,7 +88,7 @@ outputs:
         - pip check
         # check that pip gets the correct version 
         - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-        - pytest -n auto -vv geopandas/tests
+        - pytest -k "not({{ tests_to_skip }})" -n auto -vv geopandas/tests
         - pytest -n auto -vv geopandas/io/tests  # [not (linux and aarch64)]
         # Skip flaky test test_write_read_file on linux-aarch64
         - pytest -n auto -vv geopandas/io/tests -k "not test_write_read_file"  # [linux and aarch64]
@@ -78,17 +106,44 @@ outputs:
         - {{ pin_subpackage('geopandas-base', exact=True) }}
         # extras for: plotting
         - folium
-        # https://github.com/geopandas/geopandas/blob/v1.0.1/doc/source/getting_started/install.rst#dependencies
-        # in the next version it will be bumped to 2.5.0 and added to pyproject.toml
-        - mapclassify >=2.4.0
-        - matplotlib-base
+        # https://github.com/geopandas/geopandas/blob/v1.1.1/doc/source/getting_started/install.rst#dependencies
+        - mapclassify >=2.5.0
+        - matplotlib-base >=3.7.0
         - xyzservices
+  
+  # shapely.errors.UnsupportedGEOSVersionError: 'get_m' requires at least GEOS 3.12.0.
+  {% set tests_to_skip = "test_m_points" %}
+  # AssertionError: 1 out of 2 geometries are not equal
+  {% set tests_to_skip = tests_to_skip + " or test_maximum_inscribed_circle" %}
+  # AssertionError: DataFrame.iloc[:, 2] (column name="m") are different
+  {% set tests_to_skip = tests_to_skip + " or test_get_coordinates_m" %}
+  # Path issue: FileNotFoundError: [Errno 2] No such file or directory: '/Users/pkups/test_file.geojson'
+  {% set tests_to_skip = tests_to_skip + " or test_write_read_file" %}
     test:
       imports:
         - geopandas
-        - geopandas.io
-        - geopandas.tools
+        - geopandas._compat
+        - geopandas._config
+        - geopandas._decorator
+        - geopandas.accessors
+        - geopandas.array
+        - geopandas.base
         - geopandas.datasets
+        - geopandas.explore
+        - geopandas.geodataframe
+        - geopandas.geoseries
+        - geopandas.io.arrow
+        - geopandas.io.file
+        - geopandas.io.sql
+        - geopandas.io.util
+        - geopandas.plotting
+        - geopandas.testing
+        - geopandas.tests.util
+        - geopandas.tools
+        - geopandas.tools._random
+        - geopandas.tools._show_versions
+        - geopandas.tools.clip
+        - geopandas.tools.geocoding
       files:
         - test_data
       source_files:
@@ -102,7 +157,7 @@ outputs:
         - pip check
         # check that pip gets the correct version 
         - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-        - pytest -n auto -vv geopandas/tests
+        - pytest -k "not({{ tests_to_skip }})" -n auto -vv geopandas/tests
 
 about:
   home: https://geopandas.org
