@@ -49,9 +49,9 @@ outputs:
   # AssertionError: DataFrame.iloc[:, 2] (column name="m") are different
   {% set tests_to_skip = tests_to_skip + " or test_get_coordinates_m" %}
     test:
-      imports:
-        - geopandas
-        - geopandas.io
+      # imports:
+        # - geopandas
+        # - geopandas.io
       files:
         - test_data
       source_files:
@@ -99,11 +99,11 @@ outputs:
   # Path issue: FileNotFoundError: [Errno 2] No such file or directory: '/Users/pkups/test_file.geojson'
   {% set tests_to_skip = tests_to_skip + " or test_write_read_file" %}
     test:
-      imports:
-        - geopandas
-        - geopandas.io
-        - geopandas.tools
-        - geopandas.datasets
+      # imports:
+      #   - geopandas
+      #   - geopandas.io
+      #   - geopandas.tools
+      #   - geopandas.datasets
       files:
         - test_data
       source_files:
