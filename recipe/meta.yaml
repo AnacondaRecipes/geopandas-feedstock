@@ -13,6 +13,12 @@ source:
 build:
   number: 0
   skip: True  # [py<310]
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools >=61.0.0
+    - wheel
 
 outputs:
   - name: {{ name }}-base
@@ -21,9 +27,6 @@ outputs:
     requirements:
       host:
         - python
-        - pip
-        - setuptools >=61.0.0
-        - wheel
       run:
         - python
         - packaging
@@ -49,9 +52,30 @@ outputs:
   # AssertionError: DataFrame.iloc[:, 2] (column name="m") are different
   {% set tests_to_skip = tests_to_skip + " or test_get_coordinates_m" %}
     test:
-      # imports:
-        # - geopandas
-        # - geopandas.io
+      imports:
+        - geopandas
+        - geopandas._compat
+        - geopandas._config
+        - geopandas._decorator
+        - geopandas.accessors
+        - geopandas.array
+        - geopandas.base
+        - geopandas.datasets
+        - geopandas.explore
+        - geopandas.geodataframe
+        - geopandas.geoseries
+        - geopandas.io.arrow
+        - geopandas.io.file
+        - geopandas.io.sql
+        - geopandas.io.util
+        - geopandas.plotting
+        - geopandas.testing
+        - geopandas.tests.util
+        - geopandas.tools
+        - geopandas.tools._random
+        - geopandas.tools._show_versions
+        - geopandas.tools.clip
+        - geopandas.tools.geocoding
       files:
         - test_data
       source_files:
@@ -77,9 +101,6 @@ outputs:
     requirements:
       host:
         - python
-        - pip
-        - setuptools >=61.0.0
-        - wheel
       run:
         - python
         - {{ pin_subpackage('geopandas-base', exact=True) }}
@@ -99,11 +120,30 @@ outputs:
   # Path issue: FileNotFoundError: [Errno 2] No such file or directory: '/Users/pkups/test_file.geojson'
   {% set tests_to_skip = tests_to_skip + " or test_write_read_file" %}
     test:
-      # imports:
-      #   - geopandas
-      #   - geopandas.io
-      #   - geopandas.tools
-      #   - geopandas.datasets
+      imports:
+        - geopandas
+        - geopandas._compat
+        - geopandas._config
+        - geopandas._decorator
+        - geopandas.accessors
+        - geopandas.array
+        - geopandas.base
+        - geopandas.datasets
+        - geopandas.explore
+        - geopandas.geodataframe
+        - geopandas.geoseries
+        - geopandas.io.arrow
+        - geopandas.io.file
+        - geopandas.io.sql
+        - geopandas.io.util
+        - geopandas.plotting
+        - geopandas.testing
+        - geopandas.tests.util
+        - geopandas.tools
+        - geopandas.tools._random
+        - geopandas.tools._show_versions
+        - geopandas.tools.clip
+        - geopandas.tools.geocoding
       files:
         - test_data
       source_files:
