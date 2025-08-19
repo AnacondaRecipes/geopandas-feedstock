@@ -66,8 +66,6 @@ outputs:
         - geopandas.io.sql
         - geopandas.io.util
         - geopandas.plotting
-        - geopandas.testing
-        - geopandas.tests.util
         - geopandas.tools
         - geopandas.tools._random
         - geopandas.tools._show_versions
@@ -122,28 +120,9 @@ outputs:
     test:
       imports:
         - geopandas
-        - geopandas._compat
-        - geopandas._config
-        - geopandas._decorator
-        - geopandas.accessors
-        - geopandas.array
-        - geopandas.base
-        - geopandas.datasets
-        - geopandas.explore
-        - geopandas.geodataframe
-        - geopandas.geoseries
-        - geopandas.io.arrow
-        - geopandas.io.file
-        - geopandas.io.sql
-        - geopandas.io.util
-        - geopandas.plotting
-        - geopandas.testing
-        - geopandas.tests.util
+        - geopandas.io
         - geopandas.tools
-        - geopandas.tools._random
-        - geopandas.tools._show_versions
-        - geopandas.tools.clip
-        - geopandas.tools.geocoding
+        - geopandas.datasets
       files:
         - test_data
       source_files:
