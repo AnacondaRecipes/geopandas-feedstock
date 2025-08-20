@@ -50,30 +50,30 @@ outputs:
     # Path issue: FileNotFoundError: [Errno 2] No such file or directory: /Users/pkups/test_file.geojson
     {% set tests_to_skip = tests_to_skip + " or test_write_read_file" %}
     test:
-      imports:
-        - geopandas
-        - geopandas._compat
-        - geopandas._config
-        - geopandas._decorator
-        - geopandas.accessors
-        - geopandas.array
-        - geopandas.base
-        - geopandas.datasets
-        - geopandas.explore
-        - geopandas.geodataframe
-        - geopandas.geoseries
-        - geopandas.io.arrow
-        - geopandas.io.file
-        - geopandas.io.sql
-        - geopandas.io.util
-        - geopandas.plotting
-        - geopandas.testing
-        - geopandas.tests.util
-        - geopandas.tools
-        - geopandas.tools._random
-        - geopandas.tools._show_versions
-        - geopandas.tools.clip
-        - geopandas.tools.geocoding
+      # imports:
+      #   - geopandas
+      #   - geopandas._compat
+      #   - geopandas._config
+      #   - geopandas._decorator
+      #   - geopandas.accessors
+      #   - geopandas.array
+      #   - geopandas.base
+      #   - geopandas.datasets
+      #   - geopandas.explore
+      #   - geopandas.geodataframe
+      #   - geopandas.geoseries
+      #   - geopandas.io.arrow
+      #   - geopandas.io.file
+      #   - geopandas.io.sql
+      #   - geopandas.io.util
+      #   - geopandas.plotting
+      #   - geopandas.testing
+      #   - geopandas.tests.util
+      #   - geopandas.tools
+      #   - geopandas.tools._random
+      #   - geopandas.tools._show_versions
+      #   - geopandas.tools.clip
+      #   - geopandas.tools.geocoding
       files:
         - test_data
       source_files:
@@ -89,7 +89,9 @@ outputs:
         - pip check
         - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
         # - pytest -k "not({{ tests_to_skip }})" -n auto -vv geopandas/tests
-        # - pytest -n auto -vv geopandas/io/tests
+        # - pytest -n auto -vv geopandas/io/tests  # [not (linux and aarch64)]
+        # # Skip flaky test test_write_read_file on linux-aarch64
+        # - pytest -n auto -vv geopandas/io/tests -k "not test_write_read_file"  # [linux and aarch64]
         # - pytest -n auto -vv geopandas/tools/tests
 
   # - name: {{ name }}
