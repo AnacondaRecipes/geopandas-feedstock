@@ -22,16 +22,16 @@ outputs:
       host:
         - python
         - pip
-        - setuptools >=61.0.0
+        - setuptools
         - wheel
       run:
         - python
-        - packaging
-        - pandas >=1.4.0,<2
-        - shapely >=2.0.0
-        - numpy >=1.24
-        - pyogrio >=0.7.2
-        - pyproj >=3.5.0
+        # - packaging
+        # - pandas >=2.0.0
+        # - shapely >=2.0.0
+        # - numpy >=1.24
+        # - pyogrio >=0.7.2
+        # - pyproj >=3.5.0
       # run_constrained:
         # geodatabase access
         # https://github.com/geopandas/geopandas/blob/v1.1.1/environment-dev.yml#L40
