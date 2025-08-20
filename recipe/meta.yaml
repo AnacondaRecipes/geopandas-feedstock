@@ -14,14 +14,6 @@ build:
   number: 0
   skip: True  # [py<310]
 
-# shapely.errors.UnsupportedGEOSVersionError: 'get_m' requires at least GEOS 3.12.0.
-{% set tests_to_skip = "test_m_points" %}
-# AssertionError: 1 out of 2 geometries are not equal
-{% set tests_to_skip = tests_to_skip + " or test_maximum_inscribed_circle" %}
-# AssertionError: DataFrame.iloc(:, 2) (column name="m") are different
-{% set tests_to_skip = tests_to_skip + " or test_get_coordinates_m" %}
-# Path issue: FileNotFoundError: (Errno 2) No such file or directory: '/Users/pkups/test_file.geojson'
-{% set tests_to_skip = tests_to_skip + " or test_write_read_file" %}
 
 outputs:
   - name: {{ name }}-base
