@@ -32,15 +32,15 @@ outputs:
         - numpy >=1.24
         - pyogrio >=0.7.2
         - pyproj >=3.5.0
-      run_constrained:
+      # run_constrained:
         # geodatabase access
         # https://github.com/geopandas/geopandas/blob/v1.1.1/environment-dev.yml#L40
-        - psycopg2 >=2.8.0
-        - psycopg-binary >=3.1.0
-        - sqlalchemy >=2.0
+        # - psycopg2 >=2.8.0
+        # - psycopg-binary >=3.1.0
+        # - sqlalchemy >=2.0
         # - matplotlib-base >=3.7.0
         # parquet
-        - pyarrow >=10.0.0
+        # - pyarrow >=10.0.0
     # # shapely.errors.UnsupportedGEOSVersionError: get_m requires at least GEOS 3.12.0.
     # {% set tests_to_skip = "test_m_points" %}
     # # AssertionError: 1 out of 2 geometries are not equal
