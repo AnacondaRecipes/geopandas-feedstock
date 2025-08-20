@@ -15,166 +15,163 @@ build:
   skip: True  # [py<310]
 requirements:
   host:
-    - pip
     - python
-    - setuptools
-    - wheel
   run:
     - python
 
 outputs:
   - name: {{ name }}-base
+    script: build_base.sh   # [unix]
     script: build_base.bat  # [win]
-    script: build_base.sh   # [not win]
     requirements:
       host:
         - python
         - pip
-        - setuptools
+        - setuptools >=61.0.0
         - wheel
       run:
         - python
-        # - packaging
-        # - pandas >=2.0.0
-        # - shapely >=2.0.0
-        # - numpy >=1.24
-        # - pyogrio >=0.7.2
-        # - pyproj >=3.5.0
-      # run_constrained:
+        - packaging
+        - pandas >=2.0.0
+        - shapely >=2.0.0
+        - numpy >=1.24
+        - pyogrio >=0.7.2
+        - pyproj >=3.5.0
+      run_constrained:
         # geodatabase access
         # https://github.com/geopandas/geopandas/blob/v1.1.1/environment-dev.yml#L40
-        # - psycopg2 >=2.8.0
-        # - psycopg-binary >=3.1.0
-        # - sqlalchemy >=2.0
-        # - matplotlib-base >=3.7.0
+        - psycopg2 >=2.8.0
+        - psycopg-binary >=3.1.0
+        - sqlalchemy >=2.0
+        - matplotlib-base >=3.7.0
         # parquet
-        # - pyarrow >=10.0.0
-    # # shapely.errors.UnsupportedGEOSVersionError: get_m requires at least GEOS 3.12.0.
-    # {% set tests_to_skip = "test_m_points" %}
-    # # AssertionError: 1 out of 2 geometries are not equal
-    # {% set tests_to_skip = tests_to_skip + " or test_maximum_inscribed_circle" %}
-    # # AssertionError: DataFrame.iloc[:, 2] (column name="m") are different
-    # {% set tests_to_skip = tests_to_skip + " or test_get_coordinates_m" %}
-    # # Path issue: FileNotFoundError: [Errno 2] No such file or directory: /Users/pkups/test_file.geojson
-    # {% set tests_to_skip = tests_to_skip + " or test_write_read_file" %}
-    # test:
-      # imports:
-      #   - geopandas
-      #   - geopandas._compat
-      #   - geopandas._config
-      #   - geopandas._decorator
-      #   - geopandas.accessors
-      #   - geopandas.array
-      #   - geopandas.base
-      #   - geopandas.datasets
-      #   - geopandas.explore
-      #   - geopandas.geodataframe
-      #   - geopandas.geoseries
-      #   - geopandas.io.arrow
-      #   - geopandas.io.file
-      #   - geopandas.io.sql
-      #   - geopandas.io.util
-      #   - geopandas.plotting
-      #   - geopandas.testing
-      #   - geopandas.tests.util
-      #   - geopandas.tools
-      #   - geopandas.tools._random
-      #   - geopandas.tools._show_versions
-      #   - geopandas.tools.clip
-      #   - geopandas.tools.geocoding
-      # files:
-      #   - test_data
-      # source_files:
-      #   - geopandas/tests
-      #   - geopandas/conftest.py
-      #   - geopandas/io/tests
-      #   - geopandas/tools/tests
-      # requires:
-      #   - pip
-      #   - pytest
-      #   - pytest-xdist
-      # commands:
-        # - pip check
-        # - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-        # - pytest -k "not({{ tests_to_skip }})" -n auto -vv geopandas/tests
-        # - pytest -n auto -vv geopandas/io/tests  # [not (linux and aarch64)]
-        # # Skip flaky test test_write_read_file on linux-aarch64
-        # - pytest -n auto -vv geopandas/io/tests -k "not test_write_read_file"  # [linux and aarch64]
-        # - pytest -n auto -vv geopandas/tools/tests
+        - pyarrow >=10.0.0
+    # shapely.errors.UnsupportedGEOSVersionError: get_m requires at least GEOS 3.12.0.
+    {% set tests_to_skip = "test_m_points" %}
+    # AssertionError: 1 out of 2 geometries are not equal
+    {% set tests_to_skip = tests_to_skip + " or test_maximum_inscribed_circle" %}
+    # AssertionError: DataFrame.iloc[:, 2] (column name="m") are different
+    {% set tests_to_skip = tests_to_skip + " or test_get_coordinates_m" %}
+    # Path issue: FileNotFoundError: [Errno 2] No such file or directory: /Users/pkups/test_file.geojson
+    {% set tests_to_skip = tests_to_skip + " or test_write_read_file" %}
+    test:
+      imports:
+        - geopandas
+        - geopandas._compat
+        - geopandas._config
+        - geopandas._decorator
+        - geopandas.accessors
+        - geopandas.array
+        - geopandas.base
+        - geopandas.datasets
+        - geopandas.explore
+        - geopandas.geodataframe
+        - geopandas.geoseries
+        - geopandas.io.arrow
+        - geopandas.io.file
+        - geopandas.io.sql
+        - geopandas.io.util
+        - geopandas.plotting
+        - geopandas.testing
+        - geopandas.tests.util
+        - geopandas.tools
+        - geopandas.tools._random
+        - geopandas.tools._show_versions
+        - geopandas.tools.clip
+        - geopandas.tools.geocoding
+      files:
+        - test_data
+      source_files:
+        - geopandas/tests
+        - geopandas/conftest.py
+        - geopandas/io/tests
+        - geopandas/tools/tests
+      requires:
+        - pip
+        - pytest
+        - pytest-xdist
+      commands:
+        - pip check
+        - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+        - pytest -k "not({{ tests_to_skip }})" -n auto -vv geopandas/tests
+        - pytest -n auto -vv geopandas/io/tests  # [not (linux and aarch64)]
+        # Skip flaky test test_write_read_file on linux-aarch64
+        - pytest -n auto -vv geopandas/io/tests -k "not test_write_read_file"  # [linux and aarch64]
+        - pytest -n auto -vv geopandas/tools/tests
 
-  # - name: {{ name }}
-  #   requirements:
-  #     host:
-  #       - python
-  #     run:
-  #       - python
-  #       - {{ pin_subpackage('geopandas-base', exact=True) }}
-  #       # extras for: plotting
-  #       - folium
-  #       # https://github.com/geopandas/geopandas/blob/v1.1.1/doc/source/getting_started/install.rst#dependencies
-  #       - mapclassify >=2.5.0
-  #       - matplotlib-base >=3.7.0
-  #       - xyzservices
-  #   test:
-  #     imports:
-  #       - geopandas
-  #       - geopandas._compat
-  #       - geopandas._config
-  #       - geopandas._decorator
-  #       - geopandas.accessors
-  #       - geopandas.array
-  #       - geopandas.base
-  #       - geopandas.datasets
-  #       - geopandas.explore
-  #       - geopandas.geodataframe
-  #       - geopandas.geoseries
-  #       - geopandas.io.arrow
-  #       - geopandas.io.file
-  #       - geopandas.io.sql
-  #       - geopandas.io.util
-  #       - geopandas.plotting
-  #       - geopandas.testing
-  #       - geopandas.tests.util
-  #       - geopandas.tools
-  #       - geopandas.tools._random
-  #       - geopandas.tools._show_versions
-  #       - geopandas.tools.clip
-  #       - geopandas.tools.geocoding
-  #     files:
-  #       - test_data
-  #     source_files:
-  #       - geopandas/tests
-  #       - geopandas/conftest.py
-  #     requires:
-  #       - pip
-  #       - pytest
-  #       - pytest-xdist
-  #     commands:
-  #       - pip check
-  #       - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-  #       - pytest -k "not({{ tests_to_skip }})" -n auto -vv geopandas/tests
+  - name: {{ name }}
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage('geopandas-base', exact=True) }}
+        # extras for: plotting
+        - folium
+        # https://github.com/geopandas/geopandas/blob/v1.1.1/doc/source/getting_started/install.rst#dependencies
+        - mapclassify >=2.5.0
+        - matplotlib-base >=3.7.0
+        - xyzservices
+    test:
+      imports:
+        - geopandas
+        - geopandas._compat
+        - geopandas._config
+        - geopandas._decorator
+        - geopandas.accessors
+        - geopandas.array
+        - geopandas.base
+        - geopandas.datasets
+        - geopandas.explore
+        - geopandas.geodataframe
+        - geopandas.geoseries
+        - geopandas.io.arrow
+        - geopandas.io.file
+        - geopandas.io.sql
+        - geopandas.io.util
+        - geopandas.plotting
+        - geopandas.testing
+        - geopandas.tests.util
+        - geopandas.tools
+        - geopandas.tools._random
+        - geopandas.tools._show_versions
+        - geopandas.tools.clip
+        - geopandas.tools.geocoding
+      files:
+        - test_data
+      source_files:
+        - geopandas/tests
+        - geopandas/conftest.py
+      requires:
+        - pip
+        - pytest
+        - pytest-xdist
+      commands:
+        - pip check
+        - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+        - pytest -k "not({{ tests_to_skip }})" -n auto -vv geopandas/tests
 
-# about:
-#   home: https://geopandas.org
-#   license: BSD-3-Clause
-#   license_family: BSD
-#   license_file: LICENSE.txt
-#   summary: Geographic pandas extensions
-#   description: |
-#     GeoPandas is an open source project to make working with geospatial data in python easier.
-#     GeoPandas extends the datatypes used by pandas to allow spatial operations on geometric types.
-#     Geometric operations are performed by shapely. Geopandas further depends on fiona for file access and
-#     descartes and matplotlib for plotting.
-#     The goal of GeoPandas is to make working with geospatial data in python easier.
-#     It combines the capabilities of pandas and shapely, providing geospatial operations in pandas
-#     and a high-level interface to multiple geometries to shapely.
-#     GeoPandas enables you to easily do operations in python that would otherwise require a spatial database such as PostGIS.
-#   dev_url: https://github.com/geopandas/geopandas
-#   doc_url: https://geopandas.org/en/stable/docs.html
+about:
+  home: https://geopandas.org
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE.txt
+  summary: Geographic pandas extensions
+  description: |
+    GeoPandas is an open source project to make working with geospatial data in python easier.
+    GeoPandas extends the datatypes used by pandas to allow spatial operations on geometric types.
+    Geometric operations are performed by shapely. Geopandas further depends on fiona for file access and
+    descartes and matplotlib for plotting.
+    The goal of GeoPandas is to make working with geospatial data in python easier.
+    It combines the capabilities of pandas and shapely, providing geospatial operations in pandas
+    and a high-level interface to multiple geometries to shapely.
+    GeoPandas enables you to easily do operations in python that would otherwise require a spatial database such as PostGIS.
+  dev_url: https://github.com/geopandas/geopandas
+  doc_url: https://geopandas.org/en/stable/docs.html
 
-# extra:
-#   recipe-maintainers:
-#     - ocefpaf
-#     - jorisvandenbossche
-#     - jdmcbr
-#     - martinfleis
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - jorisvandenbossche
+    - jdmcbr
+    - martinfleis
