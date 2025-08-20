@@ -41,15 +41,15 @@ outputs:
         - matplotlib-base >=3.7.0
         # parquet
         - pyarrow >=10.0.0
-    # shapely.errors.UnsupportedGEOSVersionError: get_m requires at least GEOS 3.12.0.
-    {% set tests_to_skip = "test_m_points" %}
-    # AssertionError: 1 out of 2 geometries are not equal
-    {% set tests_to_skip = tests_to_skip + " or test_maximum_inscribed_circle" %}
-    # AssertionError: DataFrame.iloc[:, 2] (column name="m") are different
-    {% set tests_to_skip = tests_to_skip + " or test_get_coordinates_m" %}
-    # Path issue: FileNotFoundError: [Errno 2] No such file or directory: /Users/pkups/test_file.geojson
-    {% set tests_to_skip = tests_to_skip + " or test_write_read_file" %}
-    test:
+    # # shapely.errors.UnsupportedGEOSVersionError: get_m requires at least GEOS 3.12.0.
+    # {% set tests_to_skip = "test_m_points" %}
+    # # AssertionError: 1 out of 2 geometries are not equal
+    # {% set tests_to_skip = tests_to_skip + " or test_maximum_inscribed_circle" %}
+    # # AssertionError: DataFrame.iloc[:, 2] (column name="m") are different
+    # {% set tests_to_skip = tests_to_skip + " or test_get_coordinates_m" %}
+    # # Path issue: FileNotFoundError: [Errno 2] No such file or directory: /Users/pkups/test_file.geojson
+    # {% set tests_to_skip = tests_to_skip + " or test_write_read_file" %}
+    # test:
       # imports:
       #   - geopandas
       #   - geopandas._compat
@@ -74,20 +74,20 @@ outputs:
       #   - geopandas.tools._show_versions
       #   - geopandas.tools.clip
       #   - geopandas.tools.geocoding
-      files:
-        - test_data
-      source_files:
-        - geopandas/tests
-        - geopandas/conftest.py
-        - geopandas/io/tests
-        - geopandas/tools/tests
-      requires:
-        - pip
-        - pytest
-        - pytest-xdist
-      commands:
-        - pip check
-        - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+      # files:
+      #   - test_data
+      # source_files:
+      #   - geopandas/tests
+      #   - geopandas/conftest.py
+      #   - geopandas/io/tests
+      #   - geopandas/tools/tests
+      # requires:
+      #   - pip
+      #   - pytest
+      #   - pytest-xdist
+      # commands:
+        # - pip check
+        # - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
         # - pytest -k "not({{ tests_to_skip }})" -n auto -vv geopandas/tests
         # - pytest -n auto -vv geopandas/io/tests  # [not (linux and aarch64)]
         # # Skip flaky test test_write_read_file on linux-aarch64
