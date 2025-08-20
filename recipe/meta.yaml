@@ -7,7 +7,7 @@ package:
 
 source:
   # switch to GH archive rather than GH releases/download, to have the data files
-  url: https://github.com/{{ name }}/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  url: https://github.com/{{ name }}/{{ name }}/archive/v{{ version }}/{{ name }}-{{ version }}.tar.gz
   sha256: 542a62be47cf7931a457b007ae4adcc5f3e20086c0247f166beed3fc2fb86307
 
 build:
@@ -16,7 +16,7 @@ build:
 
 outputs:
   - name: {{ name }}-base
-    script: build_base.sh   # [not win]
+    script: build_base.sh   # [unix]
     script: build_base.bat  # [win]
     requirements:
       host:
