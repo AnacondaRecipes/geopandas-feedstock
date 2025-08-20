@@ -27,7 +27,7 @@ outputs:
       run:
         - python
         - packaging
-        - pandas >=2.0.0
+        - pandas >=1.4.0,<2
         - shapely >=2.0.0
         - numpy >=1.24
         - pyogrio >=0.7.2
