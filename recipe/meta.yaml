@@ -85,7 +85,7 @@ outputs:
           - pip check
           # check that pip gets the correct version 
           - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-          - pytest -k "not({{ tests_to_skip }})" -n auto -vv geopandas/tests
+          - pytest -k "not ({{ tests_to_skip }})" -n auto -vv geopandas/tests
           - pytest -n auto -vv geopandas/io/tests  # [not (linux and aarch64)]
           # Skip flaky test test_write_read_file on linux-aarch64
           - pytest -n auto -vv geopandas/io/tests -k "not test_write_read_file"  # [linux and aarch64]
@@ -146,7 +146,7 @@ outputs:
         - pip check
         # check that pip gets the correct version 
         - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-        - pytest -k "not({{ tests_to_skip }})" -n auto -vv geopandas/tests
+        - pytest -k "not ({{ tests_to_skip }})" -n auto -vv geopandas/tests
 
 about:
   home: https://geopandas.org
