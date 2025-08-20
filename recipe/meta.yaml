@@ -16,7 +16,7 @@ build:
 
 outputs:
   - name: {{ name }}-base
-    script: build_base.sh  # [unix]
+    script: build_base.sh   # [unix]
     script: build_base.bat  # [win]
     requirements:
       host:
