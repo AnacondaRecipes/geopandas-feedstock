@@ -15,7 +15,7 @@ build:
   skip: True  # [py<310]
 
 outputs:
-  - name: {{ name }}-base
+  - name: geopandas-base
     script: build_base.sh   # [unix]
     script: build_base.bat  # [win]
     requirements:
