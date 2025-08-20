@@ -16,8 +16,7 @@ build:
 
 outputs:
   - name: {{ name }}-base
-    # script: build_base.sh   # [unix]
-    script: build_base.bat  # [win]
+    script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
     requirements:
       host:
         - python
