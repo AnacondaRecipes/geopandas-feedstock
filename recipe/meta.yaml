@@ -160,6 +160,8 @@ outputs:
         - pip
         - pytest
         - pytest-xdist
+        # plotting tests (TestStyleMapping / TestAxisLabels) import geodatasets
+        - geodatasets
       commands:
         - pip check
         - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
