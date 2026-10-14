@@ -5,17 +5,16 @@
 {% set tests_to_skip = tests_to_skip + " or test_get_coordinates_m" %}
 {% set tests_to_skip = tests_to_skip + " or test_write_read_file" %}
 {% set deselect_tests = " --deselect=geopandas/tests/test_extension_array.py::TestGetitem::test_getitem_propagates_readonly_property" %}
-{% set deselect_tests = 'deselect_tests + " --deselect=geopandas/tests/test_extension_array.py::TestInterface::test_len"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=geopandas/tests/test_extension_array.py::TestInterface::test_size"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=geopandas/tests/test_extension_array.py::TestSetitem::test_readonly_property"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=geopandas/tests/test_extension_array.py::TestSetitem::test_readonly_propagates_to_numpy_array"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=geopandas/tests/test_extension_array.py::TestMissing::test_fillna_readonly"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=geopandas/tests/test_sindex.py::TestSeriesSindex::test_rebuild_on_slice"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=geopandas/tests/test_sindex.py::TestFrameSindex::test_rebuild_on_row_slice"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=geopandas/tests/test_sindex.py::TestFrameSindex::test_rebuild_on_multiple_col_selection"' %}
+{% set deselect_tests = deselect_tests + " --deselect=geopandas/tests/test_extension_array.py::TestInterface::test_len" %}
+{% set deselect_tests = deselect_tests + " --deselect=geopandas/tests/test_extension_array.py::TestInterface::test_size" %}
+{% set deselect_tests = deselect_tests + " --deselect=geopandas/tests/test_extension_array.py::TestSetitem::test_readonly_property" %}
+{% set deselect_tests = deselect_tests + " --deselect=geopandas/tests/test_extension_array.py::TestSetitem::test_readonly_propagates_to_numpy_array" %}
+{% set deselect_tests = deselect_tests + " --deselect=geopandas/tests/test_extension_array.py::TestMissing::test_fillna_readonly" %}
+{% set deselect_tests = deselect_tests + " --deselect=geopandas/tests/test_sindex.py::TestSeriesSindex::test_rebuild_on_slice" %}
+{% set deselect_tests = deselect_tests + " --deselect=geopandas/tests/test_sindex.py::TestFrameSindex::test_rebuild_on_row_slice" %}
+{% set deselect_tests = deselect_tests + " --deselect=geopandas/tests/test_sindex.py::TestFrameSindex::test_rebuild_on_multiple_col_selection" %}
 {% set deselect_tests_io = " --deselect=geopandas/io/tests/test_file.py::test_read_file_datetime_mixed_offsets" %}
-{% set deselect_tests_io = 'deselect_tests_io + " --deselect=geopandas/io/tests/test_file.py::test_read_file_datetime_mixed_offsets"' %}
-{% set deselect_tests_io = 'deselect_tests_io + " --deselect=geopandas/io/tests/test_file.py::test_write_read_file"' %}
+{% set deselect_tests_io = deselect_tests_io + " --deselect=geopandas/io/tests/test_file.py::test_write_read_file" %}
 
 package:
   name: {{ name }}-split
@@ -28,7 +27,7 @@ source:
 
 build:
   number: 0
-  skip: true  # [py<310]
+  skip: true  # [py<311]
 
 requirements:
   host:
@@ -44,16 +43,16 @@ outputs:
       host:
         - python
         - pip
-        - setuptools >=61.0.0
-        - wheel
+        - hatchling >=1.5
+        - hatch-vcs
       run:
         - python
         - packaging
-        - pandas >=2.0.0
-        - shapely >=2.0.0
-        - numpy >=1.24
-        - pyogrio >=0.7.2
-        - pyproj >=3.5.0
+        - pandas >=2.2.0
+        - shapely >=2.1.0
+        - numpy >=2
+        - pyogrio >=0.8
+        - pyproj >=3.7.0
       run_constrained:
         # geodatabase access
         # https://github.com/geopandas/geopandas/blob/v1.1.1/environment-dev.yml#L40
