@@ -136,7 +136,8 @@ run_constrained:
         - folium
         # https://github.com/geopandas/geopandas/blob/v1.1.1/doc/source/getting_started/install.rst#dependencies
         - mapclassify >=2.5.0
-        - matplotlib-base >=3.7.0
+- mapclassify >=2.7.0
+- matplotlib-base >=3.9.0
         - xyzservices
     test:
       imports:
